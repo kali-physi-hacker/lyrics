@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def test(request):
+    template = ""
+    context = {}
+    return render(request=request, template_name=template, context=context)
