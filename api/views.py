@@ -12,7 +12,7 @@ def test(request):
     return render(request=request, template_name=template, context=context)
 
 
-@api_view(["GET"])
+@api_view(["GET", "PUT"])
 def lyric_detail(request, pk):
     try:
         lyric = Lyric.objects.get(pk=pk)
@@ -22,3 +22,9 @@ def lyric_detail(request, pk):
     if request.method == "GET":
         serializer = LyricSerializer(lyric)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == "PUT":
+        serializer = LyricSerializer(lyric, data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
