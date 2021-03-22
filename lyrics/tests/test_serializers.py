@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.db import IntegrityError
 
 from lyrics.serializers import LyricSerializer
 from lyrics.models import Lyric
@@ -17,7 +16,7 @@ class LyricSerializerTest(TestCase):
             "description": "Test description",
             "content": "Test Content",
             "composer": "Test Composer",
-            "author": self.author,
+            "author": self.author.pk,
         }
 
         self.required_error_msg = "This field is required."
@@ -35,6 +34,7 @@ class LyricSerializerTest(TestCase):
         lyric = serializer.save()
 
         # Test that the data saved == data passed
+        self.lyric_data["author"] = self.author
         for field in self.lyric_data:
             self.assertEqual(eval(f"lyric.{field}"), self.lyric_data.get(field))
 
@@ -55,7 +55,7 @@ class LyricSerializerTest(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertEqual(serializer.errors.get("title")[0], self.required_error_msg)
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(AssertionError):
             serializer.save()
 
         # Missing content
@@ -66,7 +66,7 @@ class LyricSerializerTest(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertEqual(serializer.errors.get("content")[0], self.required_error_msg)
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(AssertionError):
             serializer.save()
 
         # Missing author
@@ -77,7 +77,7 @@ class LyricSerializerTest(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertEqual(serializer.errors.get("author")[0], self.required_error_msg)
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(AssertionError):
             serializer.save()
 
         data = self.lyric_data.copy()
@@ -87,5 +87,5 @@ class LyricSerializerTest(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertEqual(serializer.errors.get("composer")[0], self.required_error_msg)
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(AssertionError):
             serializer.save()
