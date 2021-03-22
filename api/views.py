@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from lyrics.models import Lyric
 from .models import LyricSerializer
 
@@ -16,8 +17,8 @@ def lyric_detail(request, pk):
     try:
         lyric = Lyric.objects.get(pk=pk)
     except Lyric.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
         serializer = LyricSerializer(lyric)
-        return JsonResponse(serializer.data)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
