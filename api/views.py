@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from .models import Lyric
+from lyrics.models import Lyric
 from .models import LyricSerializer
 
 
@@ -10,10 +9,9 @@ def test(request):
     template = ""
     context = {}
     return render(request=request, template_name=template, context=context)
-    from django.shortcuts import render
 
 
-@csrf_exempt
+@api_view(["GET"])
 def lyric_detail(request, pk):
     try:
         lyric = Lyric.objects.get(pk=pk)
