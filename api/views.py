@@ -18,25 +18,21 @@ def test(request):
 
 
 @api_view(["GET"])
-def Get_LyricsList(request): # new 
+def lyrics_list(request): # new 
 
 
-    try :
-        # first pick info from model
-        lyrics = Lyric.objects.all()
-    except Lyric.DoesNotExist:
-        return HttpResponse(status=404)
+    if request.method == "GET":
         
-        if request.method == "GET":
-            # serialize info
-            serializer = LyricSerializer(lyrics, many=True)
-            # return info 
-            return Response (serializer.data)
+        # get lyrics from model 
+        lyrics = Lyric.objects.all()
+        # serialize info
+        serializer = LyricSerializer(lyrics, many=True)
+        # return info 
+        return Response ( data=serializer.data , status=status.HTTP_200_OK )
 
 
 
     
-    # return info 
-    # check if info can be gotten at once and serialized too
+
 
     
