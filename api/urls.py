@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import test , Get_LyricsList 
+from .views import test , lyrics_list 
 
 urlpatterns = [
-    path("/test/", test, name="test"),
-    path("/getlyricslist/", Get_LyricsList, name="get_lyricslist")
+    path("/test/", test, name="test"),\
+    path("/getlyricslist/", lyrics_list, name="lyrics_list")
 
 ]
