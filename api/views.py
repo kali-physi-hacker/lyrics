@@ -18,21 +18,11 @@ def test(request):
 
 
 @api_view(["GET"])
-def lyrics_list(request): # new 
-
-
+def lyrics_list(request):  # new
     if request.method == "GET":
-        
-        # get lyrics from model 
+        # get lyrics from model
         lyrics = Lyric.objects.all()
         # serialize info
         serializer = LyricSerializer(lyrics, many=True)
-        # return info 
-        return Response ( data=serializer.data , status=status.HTTP_200_OK )
-
-
-
-    
-
-
-    
+        # return info
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
