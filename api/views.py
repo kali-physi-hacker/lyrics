@@ -29,4 +29,4 @@ def lyric_detail(request, pk):
         serializer = LyricSerializer(lyric, data=request.data)
         if serializer.is_valid():
             return Response(serializer.data)
-        return Response(errors=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
