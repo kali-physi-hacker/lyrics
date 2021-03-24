@@ -17,7 +17,9 @@ def lyric_detail(request, pk):
     try:
         lyric = Lyric.objects.get(pk=pk)
     except Lyric.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            data={"error": "Lyric not found"}, status=status.HTTP_404_NOT_FOUND
+        )
 
     if request.method == "GET":
         serializer = LyricSerializer(lyric)
