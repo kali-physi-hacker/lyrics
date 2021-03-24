@@ -1,20 +1,8 @@
-from django.shortcuts import render
-
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-
 from lyrics.models import Lyric
 from lyrics.serializers import LyricSerializer
-
-from django.http import HttpResponse, JsonResponse
-
-
-def test(request):
-    template = ""
-    context = {}
-    return render(request=request, template_name=template, context=context)
 
 
 @api_view(["GET"])
