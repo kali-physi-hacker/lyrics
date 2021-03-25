@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from lyrics.models import Lyric
-from .models import LyricSerializer
+from lyrics.serializers import LyricSerializer
 
 
 def test(request):
