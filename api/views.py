@@ -28,9 +28,18 @@ def lyric_detail(request, pk):
         if serializer.is_valid():
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == "POST":
+        serializer = LyricSerializer(data=request.data)
+        if serializer.is_valid()
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
 
 
-@api_view(["GET"])
+@api_view(["GET, POST"])
 def lyrics_list(request):  # new
     if request.method == "GET":
         # get lyrics from model
@@ -39,3 +48,10 @@ def lyrics_list(request):  # new
         serializer = LyricSerializer(lyrics, many=True)
         # return info
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == "POST":
+        serializer = LyricSerializer(data=request.data)
+        if serializer.is_valid()
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
